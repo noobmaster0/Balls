@@ -1,0 +1,95 @@
+<body style="background-color: black;">
+<canvas id = "canvas"></canvas>
+<link rel="style.css">
+<div>
+    <input id="num" type="number">
+    <button id="add">Add</button>
+    <button id="remove">Remove</button>
+    <p style="color:white;display: inline;" id="number"></p>
+</div>
+
+
+
+<script>
+    const gameObjects = [];
+    const canvas = document.getElementById("canvas");
+    const width = canvas.width = window.screen.width-20;
+    const height = canvas.height = window.screen.height-50;
+    const ctx = canvas.getContext("2d");
+    const lastLoop  = 0;
+    function distance(x1,y1,x2,y2){
+        return Math.sqrt(Math.pow(y2-y1,2)+Math.pow(x2-x1,2));
+    }
+    class Circle{
+        constructor(x,y,radius,color){
+            if(!radius)this.radius = 25;else this.radius = radius;
+            if(!color)this.color = "white";else this.color = color;
+            this.position = {x,y};
+            gameObjects.push(this);
+        }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.position.x, this.position.y, this.radius, 0, 60, false);
+            ctx.fill();
+        }
+        setPosition(x,y){
+            this.position = {x,y}
+        }
+        setVelocity(x,y){
+            this.velocity.x = x;
+            this.velocity.y = y;
+        }
+        update(){/*
+            for(let i in gameObjects){
+                if(this==gameObjects[i])continue;
+                //console.log(distance(this.position.x,this.position.y,gameObjects[i].position.x,gameObjects[i].position.y));
+                if(distance(this.position.x,this.position.y,gameObjects[i].position.x,gameObjects[i].position.y) <= this.radius + gameObjects[i].radius){
+                    //this.velocity.x*=-1;
+                    //this.velocity.y*=-1;
+                }
+            }*/
+
+            this.position.x+=this.velocity.x;
+            this.position.y+=this.velocity.y;
+            if(this.position.x>=width-this.radius||this.position.x<=0+this.radius){
+                this.velocity.x*=-1;
+            }
+            if(this.position.y>=height-this.radius||this.position.y<=0+this.radius){
+                this.velocity.y*=-1;
+            }
+        }
+        velocity = {x:0,y:0};
+    }
+    function clear(){
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, width, height);
+    }
+    ctx.fillStyle = "rgb(0, 0, 0)";
+    ctx.fillRect(0, 0, width, height);
+    const loop = async () => {
+        for(let i in gameObjects){
+            gameObjects[i].draw();
+            gameObjects[i].update();
+        }
+    }
+    function delay(ms){
+        return new Promise((resolve) => {setTimeout(resolve,ms)});
+    }
+    async function gameLoop(){
+        let loops = 0;
+        while(true){
+            //if(loops == 30){
+            //    loops = 0;
+                clear();
+            //}
+            loop(); 
+            
+            loops++;
+            await delay(1000/100);
+        }
+    }
+    gameLoop();
+</script>
+<script src="script.js"></script>
+</body>
