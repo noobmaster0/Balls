@@ -1,11 +1,21 @@
 <body style="background-color: black;">
 <canvas id = "canvas"></canvas>
-<link rel="style.css">
+<link rel="stylesheet" href="style.css">
 <div>
     <input id="num" type="number">
     <button id="add">Add</button>
     <button id="remove">Remove</button>
-    <p style="color:white;display: inline;" id="number"></p>
+    <p style="color:white;display: inline;" id="number">0</p>
+</div>
+<div >
+    <p style="display:inline;color:white;">Active Colors:</p>
+    <div style="display:inline;" id="colors"></div>
+</div>
+<div>
+    <p style="display:inline;color:white;">Removed Colors:</p>
+    <div style="display:inline;" id="removedColors">
+
+    </div>
 </div>
 
 
@@ -13,8 +23,8 @@
 <script>
     const gameObjects = [];
     const canvas = document.getElementById("canvas");
-    const width = canvas.width = window.screen.width-20;
-    const height = canvas.height = window.screen.height-50;
+    const width = canvas.width = window.screen.width-30;
+    const height = canvas.height = window.screen.height-200;
     const ctx = canvas.getContext("2d");
     const lastLoop  = 0;
     function distance(x1,y1,x2,y2){

@@ -4,17 +4,12 @@ let colors = [
     "Red",
     "Green",
     "Brown",
-    "Azure",
-    "Ivory",
     "Teal",
     "Silver",
     "Purple",
-    "Navy blue",
-    "Pea green",
     "Gray",
     "Orange",
     "Maroon",
-    "Charcoal",
     "Aquamarine",
     "Coral",
     "Fuchsia",
@@ -22,17 +17,45 @@ let colors = [
     "Lime",
     "Crimson",
     "Khaki",
-    "Hot pink",
     "Magenta",
-    "Olden",
     "Plum",
     "Olive",
     "Cyan"
-    ];
+];
+let removedColors = [
+];
+
+let colorsDiv = document.getElementById("colors");
+let removedColorsDiv = document.getElementById("removedColors");
+
+function updateColors(){
+    colorsDiv.innerHTML = "";
+    removedColorsDiv.innerHTML = "";
+    for(i in colors){
+        colorsDiv.innerHTML += `<button id="c${i}" onclick="removeColor(${i})" style="display:inline;background-color:${colors[i]};color:${colors[i]};">1</button>`;
+    }
+    for(i in removedColors){
+        removedColorsDiv.innerHTML += `<button id="rc${i}" onclick="removeRemovedColor(${i})" style="display:inline;background-color:${removedColors[i]};color:${removedColors[i]};">1</button>`;
+    }
+}
+
+updateColors();
+
+function removeColor(i){
+    removed = colors.splice(i,1);
+    removedColors.push(removed);
+    updateColors();
+}
+
+function removeRemovedColor(i){
+    removed = removedColors.splice(i,1);
+    colors.push(removed);
+    updateColors();
+}
 
 function add(num){
     for(i=0;i<num;i++){
-        new Circle(Math.random()*1000,Math.random()*750,3,colors[Math.floor(Math.random() * colors.length)]).setVelocity((Math.random()*20)-10,(Math.random()*20)-10);
+        new Circle(Math.floor(Math.random()*width-40)+20,Math.floor(Math.random()*height-40)+20,3,colors[Math.floor(Math.random() * colors.length)]).setVelocity((Math.random()*10)-5,(Math.random()*10)-5);
     }
 }
 

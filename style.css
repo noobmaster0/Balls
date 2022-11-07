@@ -6,3 +6,17 @@ body{
 div{
     background-color: black;
 }
+button{
+    background-color: black;
+    border-color: #323639;
+    background-color: #202124;
+    border-radius: 3px;
+    color:#D6D6D7;
+}
+input{
+    background-color: black;
+    border-color: #323639;
+    background-color: #202124;
+    border-radius: 3px;
+    color:#D6D6D7;
+}
